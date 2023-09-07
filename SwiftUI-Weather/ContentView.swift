@@ -3,13 +3,14 @@
 //  SwiftUI-Weather
 //
 //  Created by robin tetley on 07/09/2023.
-//
+// build a model and refactor Hstack with an array
 
 import SwiftUI
 
 struct ContentView: View {
     
     @State private var isNight = false
+    var myDays = DayModel()
     
     var body: some View {
         ZStack {
@@ -21,11 +22,14 @@ struct ContentView: View {
                                       temperature: 70)
                 
                 HStack(spacing: 20) {
-                    WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 76)
-                    WeatherDayView(dayOfWeek: "WED", imageName: "sun.max.fill", temperature: 76)
-                    WeatherDayView(dayOfWeek: "THU", imageName: "wind.snow", temperature: 76)
-                    WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.drizzle.fill", temperature: 76)
-                    WeatherDayView(dayOfWeek: "SAT", imageName: "cloud.snow.fill", temperature: 76)
+//                    WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 76)
+//                    WeatherDayView(dayOfWeek: "WED", imageName: "sun.max.fill", temperature: 76)
+//                    WeatherDayView(dayOfWeek: "THU", imageName: "wind.snow", temperature: 76)
+//                    WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.drizzle.fill", temperature: 76)
+//                    WeatherDayView(dayOfWeek: "SAT", imageName: "cloud.snow.fill", temperature: 76)
+                    ForEach(0..<myDays.days.count, id: \.self) { index in
+                        WeatherDayView(day: myDays.days[index])
+                    }
                 }
                 Spacer()
                 
@@ -52,22 +56,20 @@ struct ContentView_Previews: PreviewProvider {
 
 struct WeatherDayView: View {
     
-    var dayOfWeek: String
-    var imageName: String
-    var temperature: Int
+    var day: Day
     
     var body: some View {
         VStack(spacing: 8) {
-            Text(dayOfWeek)
+            Text(day.dayName)
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.white)
-            Image(systemName: imageName)
+            Image(systemName: day.imageName)
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40, height: 40)
-            Text("\(temperature)°")
-                .font(.system(size: 28, weight: .medium))
+            Text("\(day.temperature)°")
+                .font(.system(size: 20, weight: .medium))
                 .foregroundColor(.white)
         }
     }
