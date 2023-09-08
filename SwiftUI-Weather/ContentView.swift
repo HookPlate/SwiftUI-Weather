@@ -21,12 +21,7 @@ struct ContentView: View {
                 MainWeatherStatusView(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
                                       temperature: 70)
                 
-                HStack(spacing: 20) {
-//                    WeatherDayView(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temperature: 76)
-//                    WeatherDayView(dayOfWeek: "WED", imageName: "sun.max.fill", temperature: 76)
-//                    WeatherDayView(dayOfWeek: "THU", imageName: "wind.snow", temperature: 76)
-//                    WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.drizzle.fill", temperature: 76)
-//                    WeatherDayView(dayOfWeek: "SAT", imageName: "cloud.snow.fill", temperature: 76)
+                HStack(spacing: 20) {	
                     ForEach(0..<myDays.days.count, id: \.self) { index in
                         WeatherDayView(day: myDays.days[index])
                     }
